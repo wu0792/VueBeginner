@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+</head>
+
+<body>
+    <div id="app">
+        {{message}}
+        <br>
+        <input v-model="message">
+        <br>
+        <ul>
+            <li v-for="todo in todos">
+                {{todo.text}} <button v-on:click="removeTodo($index)">X</button>
+            </li>
+        </ul>
+        <br>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+</body>
+    <script src="./lib/vue.js"></script>
+    <script>
+	    new Vue({
+            el:'#app',
+            data:{
+                message: 'Hello Vue.js!',
+                todos:[
+                    {text:'learn js'},
+                    {text:'learn vue.js'},
+                    {text:'learn ftl'},
+                ]
+            },
+            methods:{
+                reverseMessage:function(){
+                    this.message = this.message.split('').reverse().join('');
+                },
+                removeTodo:function(idx){
+                    this.todos.splice(idx,1);
+                }
+            }
+        });  
+    </script>
+</html>
