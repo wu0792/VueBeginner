@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <h3>for directive:</h3>
+            <span>we have flowing prods:</span>
+            <ul>
+                <li v-for="prod in list">
+                    <button v-on:click="edit($index,$event)" v-bind:disabled="isEditing">Edit</button> {{$index+1}}: name:{{prod.name}},price:¥{{prod.price}}
+                </li>
+            </ul>
+            <hr>
+        </div>
+        <div v-if="isEditing">
+            <div>
+                <span>id:</span>
+                <input type="text" disabled="disabled" v-model.once="editItem.id">
+            </div>
+            <div>
+                <span>name:</span>
+                <input type="text" v-model="editItem.name">
+            </div>
+            <div>
+                <span>price:</span>
+                <input type="text" v-model="editItem.price">
+            </div>
+            <button v-on:click="submit">submit changes</button>
+            <button v-on:click="cancel">cancel</button>
+        </div>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+	 var masterVm = new Vue({
+            el:'#app',
+            data:{
+                list:[
+                    {id:1, name:'iphone', price: 5000},
+                    {id:2, name:'ipad', price: 3000},
+                    {id:3, name:'imac', price: 8000},
+                ],
+                isEditing: false,
+                editItem: null,
+                backupEditItem: null
+            },
+            methods:{
+                edit:function(idx,eve){
+                    this.editItem = this.list[idx];
+                    this.backupEditItem = JSON.parse(JSON.stringify(this.list[idx]));
+                    this.isEditing=true;
+                },
+                submit:function(){
+                    if(!this.editItem){
+                        return;
+                    }
+
+                    this.isEditing=false;
+                    this.backupEditItem = null;
+                },
+                cancel:function(){
+                    if(this.backupEditItem){
+                        var idx = this.list.indexOf(this.editItem);
+                        if(idx >= 0){
+                            this.list.$set(idx, this.backupEditItem);
+                        }
+                    }
+
+                    this.backupEditItem = null;
+                    this.isEditing=false;
+                }
+            }
+        });
+    </script>
+
+</html>

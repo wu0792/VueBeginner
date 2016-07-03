@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+</head>
+
+<body>
+    <div id="app">
+        <div>
+            <article style="border:solid 1px orange;backgroundColor:wheat;padding:5px;fontWeight:bold;">
+                note:using inspect html to view the html source code.
+            </article>
+
+            <h3>using if to condtional render the html:</h3>
+            <span>Do you allow the operation:</span>
+            <label><input type="radio" value="1" v-model="type1">YES</label>
+            <label><input type="radio" value="0" v-model="type1">NO</label>
+            <label><input type="radio" value="" v-model="type1">LATER</label>
+            <br>
+            <div v-if="type1=='1'">you checked yes.</div>
+            <div v-else>
+                <div v-if="type1=='0'">you checked no.</div>
+                <div v-else>you checked later.</div>
+            </div>
+            <hr>
+            <h3>using show directive to set the display attr of node:</h3>
+            <span>Do you like Vue.js:</span>
+            <label><input type="radio" value="1" v-model="type2">YES</label>
+            <label><input type="radio" value="0" v-model="type2">NO</label>
+            <label><input type="radio" value="" v-model="type2">NO IDEA</label>
+            <br>
+            <div v-show="type2=='1'">you checked yes.</div>
+            <div v-show="type2=='0'">you checked no.</div>
+            <div v-show="type2==''">you checked later.</div>
+            <hr>
+        </div>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+	    new Vue({
+            el:'#app',
+            data:{
+                type1:'1',
+                type2:'1'
+            }
+        });  
+    </script>
+
+</html>

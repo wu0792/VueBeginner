@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>computed prop using function expression:</h3>
+        <div>
+            <span>first name:</span>
+            <input type="text" v-model="firstName">
+        </div>
+        <div>
+            <span>last name:</span>
+            <input type="text" v-model="lastName">
+        </div>
+        <div>
+            <span>full name:</span>
+            <input type="text" readonly disabled v-model="fullName">
+        </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+	    new Vue({
+            el:'#app',
+            data:{
+                firstName:'lucy',
+                lastName:'green'
+            },
+            computed:{
+                fullName:function(){
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        });  
+    </script>
+
+</html>

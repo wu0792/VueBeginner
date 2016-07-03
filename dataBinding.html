@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+    <style>
+        .valid {
+            color: green;
+        }
+        
+        .invalid {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h3>one time binding:</h3>
+        <div>
+            <span>input message here:</span>
+            <input type="text" v-model="message">
+        </div>
+        <div>
+            <span>message here:</span> {{message}}
+        </div>
+        <div>
+            <span>onetime binding(never change):</span> {{*message}}
+        </div>
+        <hr>
+        <h3>raw html:</h3>
+        <div>
+            <span>raw html here:</span> {{{html}}}
+        </div>
+        <hr>
+        <h3>attributes expression:</h3>
+        <div>
+            <span id="span_{{id}}">{{'span_'+id}}</span>
+        </div>
+        <hr>
+        <h3>binding expression:</h3>
+        <div>
+            <span>valid info:</span>
+            <span v-bind:class="{'valid':valid}">valid</span>
+        </div>
+        <div>
+            <span>invalid info:</span>
+            <span v-bind:class="{'invalid':valid}">invalid</span>
+        </div>
+        <div>
+            <span>array class expression:</span>
+            <span v-bind:class="[valid?'valid':'',invalid?'invalid':'']">{{common?'very good':'not that good'}}</span>
+        </div>
+        <div>
+            <span>inline style:</span>
+            <span v-bind:style="{fontSize:common?'12px':'14px',fontWeight:fromSZX?'bold':'light'}">12px and bold style here.</span>
+        </div>
+        <div>
+            <span>style from object:</span>
+            <span v-bind:style="styleObject">14px and light style here.</span>
+        </div>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+	    new Vue({
+            el:'#app',
+            data:{
+                message: 'it is sunday tody.',
+                html:'<b>i am bold font.</b>',
+                id:'vuevue',
+                valid: true,
+                common: false,
+                fromSZX:true,
+                styleObject:{
+                    fontSize:'14px',
+                    fontWeight:'light'
+                }
+            }
+        });  
+    </script>
+
+</html>

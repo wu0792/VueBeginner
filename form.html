@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+</head>
+
+<body>
+    <div id="app">
+        <h3>various of input type in the form:</h3>
+        <div>
+            <span>text:</span><br>
+            <input type="text" v-model="textVal">
+            <br>
+            <div class="hint">
+                <span>val:</span> {{textVal}}
+            </div>
+        </div>
+        <hr>
+        <div>
+            <span>checkbox:</span><br>
+            <label><input type="checkbox" v-model="checkboxVal">check or not</label>
+            <br>
+            <div class="hint">
+                <span>val:</span> {{checkboxVal}}
+            </div>
+        </div>
+        <hr>
+         <div>
+            <span>checkbox2:</span><br>
+            <label><input type="checkbox" v-model="checkboxVal2" v-bind:true-value="TrueVal" v-bind:false-value="FalseVal">check or not</label>
+            <br>
+            <div class="hint">
+                <span>val:</span> {{checkboxVal2}}
+            </div>
+        </div>
+        <hr>
+        <div>
+            <span>checkboxList:</span><br>
+            <label><input type="checkbox" name="checkboxLis" value="A" v-model="checkboxListVal">A</label><br>
+            <label><input type="checkbox" name="checkboxLis" value="B" v-model="checkboxListVal">B</label><br>
+            <label><input type="checkbox" name="checkboxLis" value="C" v-model="checkboxListVal">C</label><br>
+            <div class="hint">
+                <span>val:</span> {{checkboxListVal}}
+            </div>
+        </div>
+        <hr>
+        <div>
+            <span>radioList:</span><br>
+            <label><input type="radio" name="radioList" value="A" v-model="radioVal">A</label><br>
+            <label><input type="radio" name="radioList" value="B" v-model="radioVal">B</label><br>
+            <label><input type="radio" name="radioList" value="C" v-model="radioVal">C</label><br>
+            <div class="hint">
+                <span>val:</span> {{radioVal}}
+            </div>
+        </div>
+        <hr>
+
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+	    new Vue({
+            el:'#app',
+            data:{
+                textVal: 'textVal',
+                checkboxVal: true,
+                checkboxVal2: null,
+                checkboxListVal: [],
+                radioVal: 'A',
+                TrueVal: 'YES',
+                FalseVal: 'NO'
+            },
+            computed:{
+                fullName:function(){
+                    return this.firstName + ' ' + this.lastName;
+                }
+            }
+        });  
+    </script>
+
+</html>
