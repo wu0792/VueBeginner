@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+    <style>
+        .tip {
+            border: solid 1px orange;
+            background-color: wheat;
+            position: relative;
+            height: 22px;
+        }
+        
+        .remove {
+            background: none;
+            border: none;
+            line-height: 20px;
+            text-align: right;
+            color: red;
+            font-weight: bold;
+            position: absolute;
+            right: 0;
+            top: 0;
+            cursor: pointer;
+        }
+        
+        .remove:hover {
+            background-color: palegoldenrod;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <tip-message message='tomorrow is free, you can call me.'></tip-message>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script>
+    var TipMessage = Vue.extend({
+        template: "<div><div class='tip' v-if='display'>{{message}}<button class='remove' v-on:click='remove()'>X</button></div></div>",
+        props: ['message'],
+        data:function() {
+            return{
+                display: true
+            };
+        },
+        methods:{
+            remove:function(){
+                this.display = false;
+            }
+        }
+    });
+
+    Vue.component('tip-message', TipMessage);
+    new Vue({
+        el: '#app'
+    })
+</script>
+
+</html>

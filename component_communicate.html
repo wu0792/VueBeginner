@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+    <style>
+        .entry {
+            margin: 5px;
+        }
+
+        span{
+            display: inline-block;
+        }
+        
+        .label {
+            width: 40px;
+            text-align: right;
+            font-size: 12px;
+            line-height: 15px;
+            margin: 3px;
+            margin-left: 10px;
+        }
+        
+        .input {
+            width: 100px;
+            font-size: 12px;
+            height: 18px;
+            line-height: 15px;
+        }
+
+        .header_seq{
+            width: 40px;
+        }
+        
+        .header_name{
+            width: 220px;
+        }
+
+        .header_price{
+            width: 180px;
+        }
+
+        .header_quantity{
+            width: 220px;
+        }
+
+        .header_madeAt{
+            width: 220px;
+        }
+        
+        .longInput {
+            width: 140px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h4>details:</h4>
+        <item-entry is-title='true'></item-entry>
+        <div v-for="n in 5">
+            <item-entry v-bind:seq="n + 1"></item-entry>
+        </div>
+        <hr>
+        <h4>summary:</h4>
+        <span class="label">total money:{{total}}</span>
+    </div>
+</body>
+<script src="./lib/vue.js"></script>
+<script src="./lib/utils.js"></script>
+<script>
+    var ItemEntry = Vue.extend({
+        template: utils.functionComment(function(){
+/*
+<div v-if="isTitle">
+    <span class="header_seq">序号</span>
+    <span class="header_name">名称</span>
+    <span class="header_price">价格</span>
+    <span class="header_quantity">数量</span>
+    <span class="header_madeAt">生产日期</span>
+</div>
+<div v-else class="entry">
+    <span class="label">{{seq}}</span>
+    <span class="label">name:</span>
+    <input type="text" class="input longInput" v-model="name">
+    <span class="label">price:</span>
+    <input type="number" class="input" v-model="price">
+    <span class="label">quantity:</span>
+    <input type="number" class="quantity" v-model="quantity">
+    <span class="label">made At:</span>
+    <input type="date" class="input longInput" v-model="madeAt">
+</div>
+*/
+        }) ,
+	    props:{
+            isTitle:{
+                default: false
+            },
+            seq:{
+                default: 0
+            },
+            name: {
+                type: String,
+                default: ''
+            },
+            price: {
+                type: Number,
+                default: 0
+            },
+            quantity: {
+                type: Number,
+                default: 0
+            },
+            madeAt:{}
+        },
+        methods:{
+            
+        }
+    });
+
+    Vue.component('item-entry', ItemEntry);
+   var vm = new Vue({
+       el: '#app',
+       data:{
+
+       },
+       computed:{
+           total: function(){
+               var sum = 0;
+               this.$children.forEach(function(n){
+                   sum += n.quantity*n.price;
+               });
+              
+              return sum;
+            }
+        }
+    })
+</script>
+
+</html>
