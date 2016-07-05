@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+</head>
+
+<body>
+    <div id="app">
+        <validator name="validation1">
+            <form novalidate>
+                <div class="username-field">
+                    <label for="username">username:</label>
+                    <input id="username" type="text" v-model="username" v-validate:username="['required']">
+                    <span>(required)</span>
+                </div>
+                <div class="comment-field">
+                    <label for="comment">comment:</label>
+                    <input id="comment" type="text" v-model="comment" v-validate:comment="{ maxlength: 10 }">
+                    <span>(maxlength 10)</span>
+                </div>
+                <div class="errors">
+                    <p v-if="$validation1.username.required">Required your name.</p>
+                    <p v-if="$validation1.comment.maxlength">Your comment is too long.</p>
+                </div>
+                <input type="submit" value="send">
+            </form>
+        </validator>
+    </div>
+</body>
+<script src="../lib/vue.js"></script>
+<script src="../lib/vue-validator.min.js"></script>
+<script>
+	 var vm = new Vue({
+            el:'#app',
+            data:{
+                username: '',
+                comment: ''
+            }
+        });  
+    </script>
+
+</html>

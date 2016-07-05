@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+    <style>
+        input[type='text'] {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <validator name="validation1">
+            <form novalidate>
+                <p class="validate-field" v-for="field in fields">
+                    <label for="field.id">{{field.label}}</label>
+                    <input type="text" :id="field.id" :placeholder="field.placeholder" :field="field.name" v-validate="field.validate">
+                </p>
+                <pre>
+                    {{$validation1|json}}
+                </pre>
+                <input type="submit" value="send">
+            </form>
+        </validator>
+    </div>
+</body>
+<script src="../lib/vue.js"></script>
+<script src="../lib/vue-validator.min.js"></script>
+<script>
+	 var vm = new Vue({
+            el:'#app',
+            data:{
+                fields:[
+                    {
+                        id: 'username',
+                        label: 'username',
+                        name: 'username',
+                        placeholder: 'required, minlength 3, maxlength 5.',
+                        validate:{
+                            required: true,
+                            minlength: 3,
+                            maxlength: 5
+                        }
+                    },
+                     {
+                        id: 'dcity',
+                        label: 'dcity',
+                        name: 'dcity',
+                        placeholder: 'input dcity, required, 3 letters.',
+                        validate:{
+                            required: true,
+                            pattern: '/^[a-zA-Z]{3}$/'
+                        }
+                    }
+                ]
+            }
+        });  
+    </script>
+
+</html>
