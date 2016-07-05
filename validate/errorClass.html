@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html i18n-values="
+    dir:textdirection;
+    hasattribution:hasattribution;
+    themegravity:themegravity;
+    bookmarkbarattached:bookmarkbarattached;" class="starting-up">
+
+<head>
+    <meta charset="utf-8">
+    <title i18n-content="title"></title>
+    <style>
+        .error {
+            border: solid 1px red;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <validator name="validation1">
+            <form novalidate>
+                <div class="username-field">
+                    <label for="username">username:</label>
+                    <input id="username" type="text" v-model="username" v-validate:username="['required']" v-bind:class="{'error': hasValidated && $validation1.username.invalid}">
+                    <span>(required)</span>
+                </div>
+                <div class="comment-field">
+                    <label for="comment">comment:</label>
+                    <input id="comment" type="text" v-model="comment" v-validate:comment="{ maxlength: 5 }" v-bind:class="{'error':hasValidated && $validation1.comment.invalid}">
+                    <span>(maxlength 5)</span>
+                </div>
+                <input type="button" value="reset" v-on:click="reset">
+                <input type="button" value="send" v-on:click="submit">
+            </form>
+        </validator>
+    </div>
+</body>
+<script src="../lib/vue.js"></script>
+<script src="../lib/vue-validator.min.js"></script>
+<script>
+	 var vm = new Vue({
+            el:'#app',
+            data:{
+                username: '',
+                comment: '',
+                hasValidated: false
+            },
+            activate: function (done) {
+                done();
+            },
+            methods:{
+                submit:function(e){
+                    this.hasValidated = true;
+                    if(this.$validation1.invalid){
+                        alert('invalid.');
+                        e.preventDefault();
+                        return;
+                    }
+
+                    alert('submit now.');
+                },
+                reset:function(){
+                    this.$resetValidation();
+                }
+            }
+        });  
+    </script>
+
+</html>
